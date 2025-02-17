@@ -23,19 +23,19 @@ except Exception as e:
     print(f"Ocorreu um erro: {e}")
 
 def go_to_register_page():
-    homePage.pack_forget()  
-    registerPage.pack() 
+    home_page.pack_forget()  
+    register_page.pack() 
 
 def go_to_login_page():
-    homePage.pack_forget() 
-    loginPage.pack()
+    home_page.pack_forget() 
+    login_page.pack()
 
 def go_back_to_home():
-    registerPage.pack_forget()  
-    loginPage.pack_forget() 
-    homePage.pack()  
+    register_page.pack_forget()  
+    login_page.pack_forget() 
+    home_page.pack()  
 
-def create_account():
+def register():
     name = entry_name.get()
     email = entry_email.get()
     password = entry_password.get()
@@ -73,54 +73,54 @@ root = tk.Tk()
 root.title("Sistema de Cadastro e Login")
 root.geometry("1000x600")
 
-homePage = tk.Frame(root)
-homePage.pack()
+home_page = tk.Frame(root)
+home_page.pack()
 
-button_register = tk.Button(homePage, text="Cadastro", command=go_to_register_page)
+button_register = tk.Button(home_page, text="Cadastro", command=go_to_register_page)
 button_register.pack(pady=10)
 
-button_login = tk.Button(homePage, text="Login", command=go_to_login_page)
+button_login = tk.Button(home_page, text="Login", command=go_to_login_page)
 button_login.pack(pady=10)
 
-registerPage = tk.Frame(root)
+register_page = tk.Frame(root)
 
-label_name = tk.Label(registerPage, text="Nome:")
+label_name = tk.Label(register_page, text="Nome:")
 label_name.pack(pady=5)
-entry_name = tk.Entry(registerPage)
+entry_name = tk.Entry(register_page)
 entry_name.pack(pady=5)
 
-label_email = tk.Label(registerPage, text="Email:")
+label_email = tk.Label(register_page, text="Email:")
 label_email.pack(pady=5)
-entry_email = tk.Entry(registerPage)
+entry_email = tk.Entry(register_page)
 entry_email.pack(pady=5)
 
-label_password = tk.Label(registerPage, text="Senha:")
+label_password = tk.Label(register_page, text="Senha:")
 label_password.pack(pady=5)
-entry_password = tk.Entry(registerPage, show="*")
+entry_password = tk.Entry(register_page, show="*")
 entry_password.pack(pady=5)
 
-button_create_account = tk.Button(registerPage, text="Criar Cadastro", command=create_account)
-button_create_account.pack(pady=10)
+button_register = tk.Button(register_page, text="Criar Cadastro", command=register)
+button_register.pack(pady=10)
 
-button_back_to_home_from_register = tk.Button(registerPage, text="Voltar para a Página Inicial", command=go_back_to_home)
+button_back_to_home_from_register = tk.Button(register_page, text="Voltar para a Página Inicial", command=go_back_to_home)
 button_back_to_home_from_register.pack(pady=10)
 
-loginPage = tk.Frame(root)
+login_page = tk.Frame(root)
 
-label_login_name = tk.Label(loginPage, text="Nome:")
+label_login_name = tk.Label(login_page, text="Nome:")
 label_login_name.pack(pady=5)
-entry_login_name = tk.Entry(loginPage)
+entry_login_name = tk.Entry(login_page)
 entry_login_name.pack(pady=5)
 
-label_login_password = tk.Label(loginPage, text="Senha:")
+label_login_password = tk.Label(login_page, text="Senha:")
 label_login_password.pack(pady=5)
-entry_login_password = tk.Entry(loginPage, show="*")
+entry_login_password = tk.Entry(login_page, show="*")
 entry_login_password.pack(pady=5)
 
-button_login_action = tk.Button(loginPage, text="Logar", command=login)
+button_login_action = tk.Button(login_page, text="Logar", command=login)
 button_login_action.pack(pady=10)
 
-button_back_to_home_from_login = tk.Button(loginPage, text="Voltar para a Página Inicial", command=go_back_to_home)
+button_back_to_home_from_login = tk.Button(login_page, text="Voltar para a Página Inicial", command=go_back_to_home)
 button_back_to_home_from_login.pack(pady=10)
 
 root.mainloop()
