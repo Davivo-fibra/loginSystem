@@ -102,8 +102,6 @@ entry_password.pack(pady=5)
 button_create_account = tk.Button(registerPage, text="Criar Cadastro", command=create_account)
 button_create_account.pack(pady=10)
 
-
-
 button_back_to_home_from_register = tk.Button(registerPage, text="Voltar para a Página Inicial", command=go_back_to_home)
 button_back_to_home_from_register.pack(pady=10)
 
