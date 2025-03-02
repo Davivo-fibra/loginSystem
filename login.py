@@ -8,7 +8,6 @@ user = "davivo"
 password = "davas"
 host = "localhost"
 port = "5432"
-randomnumber=''.join(random.choices('0123456789', k=6))
 
 try:
     conn = psycopg2.connect(
@@ -24,16 +23,19 @@ except Exception as e:
 
 def go_to_register_page():
     home_page.pack_forget()  
-    register_page.pack() 
+    register_page.pack()
 
 def go_to_login_page():
     home_page.pack_forget() 
     login_page.pack()
 
-def go_back_to_home():
+def go_to_home_page():
     register_page.pack_forget()  
     login_page.pack_forget() 
     home_page.pack()  
+
+def generate_code():
+    return ''.join(random.choices('0123456789', k=6))
 
 def register():
     name = entry_name.get()
@@ -41,15 +43,30 @@ def register():
     password = entry_password.get()
 
     if name and email and password:
+        global random_code
+        random_code = generate_code()
+        print(f"Código gerado: {random_code}")  # Imprime o código no console
+        label_code.pack(pady=5)
+        entry_code.pack(pady=5)
+        button_validate_code.pack(pady=10)
+    else:
+        messagebox.showerror("Erro", "Preencha todos os campos!")
+
+def validate_code():
+    user_code = entry_code.get()
+    if user_code == random_code:
+        name = entry_name.get()
+        email = entry_email.get()
+        password = entry_password.get()
+
         cursor = conn.cursor()
         cursor.execute("INSERT INTO register (name, email, password) VALUES (%s, %s, %s)", (name, email, password))
         conn.commit()
         cursor.close()
         messagebox.showinfo("Cadastro", "Cadastro realizado com sucesso!")
-        go_back_to_home()
-        print(randomnumber)
+        go_to_home_page()
     else:
-        messagebox.showerror("Erro", "Preencha todos os campos!")
+        messagebox.showerror("Erro", "Código inválido!")
 
 def login():
     name = entry_login_name.get()
@@ -63,7 +80,7 @@ def login():
         
         if user:
             messagebox.showinfo("Login", f"Bem-vindo, {name}!")
-            go_back_to_home()
+            go_to_home_page()
         else:
             messagebox.showerror("Erro", "Nome de usuário ou senha inválidos!")
     else:
@@ -99,11 +116,16 @@ label_password.pack(pady=5)
 entry_password = tk.Entry(register_page, show="*")
 entry_password.pack(pady=5)
 
-button_register = tk.Button(register_page, text="Criar Cadastro", command=register)
-button_register.pack(pady=10)
+button_register_action = tk.Button(register_page, text="Criar Cadastro", command=register)
+button_register_action.pack(pady=10)
 
-button_back_to_home_from_register = tk.Button(register_page, text="Voltar para a Página Inicial", command=go_back_to_home)
+button_back_to_home_from_register = tk.Button(register_page, text="Voltar para a Página Inicial", command=go_to_home_page)
 button_back_to_home_from_register.pack(pady=10)
+
+label_code = tk.Label(register_page, text="Digite o código gerado no console:")
+entry_code = tk.Entry(register_page)
+
+button_validate_code = tk.Button(register_page, text="Validar Código", command=validate_code)
 
 login_page = tk.Frame(root)
 
@@ -120,7 +142,7 @@ entry_login_password.pack(pady=5)
 button_login_action = tk.Button(login_page, text="Logar", command=login)
 button_login_action.pack(pady=10)
 
-button_back_to_home_from_login = tk.Button(login_page, text="Voltar para a Página Inicial", command=go_back_to_home)
+button_back_to_home_from_login = tk.Button(login_page, text="Voltar para a Página Inicial", command=go_to_home_page)
 button_back_to_home_from_login.pack(pady=10)
 
 root.mainloop()
