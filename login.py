@@ -45,7 +45,7 @@ def register():
     if name and email and password:
         global random_code
         random_code = generate_code()
-        print(f"Código gerado: {random_code}")  # Imprime o código no console
+        print(f"Código gerado: {random_code}") 
         label_code.pack(pady=5)
         entry_code.pack(pady=5)
         button_validate_code.pack(pady=10)
